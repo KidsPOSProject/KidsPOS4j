@@ -1,0 +1,59 @@
+group 'info.nukoneko'
+version '0.0.3'
+
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+def javaVersion = 1.8
+def defaultEncoding = 'UTF-8'
+
+def JacksonVersion = '2.7.0'
+def SQLiteJDBCVersion = '3.7.2'
+def OkHTTPVersion = '2.7.2'
+def RetroFitVersion = '2.0.0-beta2'
+def RxJavaVersion = '1.1.0'
+
+sourceCompatibility = javaVersion
+targetCompatibility = javaVersion
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$JacksonVersion"
+
+    compile "org.xerial:sqlite-jdbc:$SQLiteJDBCVersion"
+
+    compile "io.reactivex:rxjava:$RxJavaVersion"
+
+    compile "com.squareup.okhttp:okhttp:$OkHTTPVersion"
+
+    compile "com.squareup.retrofit:retrofit:$RetroFitVersion"
+    compile "com.squareup.retrofit:converter-jackson:$RetroFitVersion"
+    compile "com.squareup.retrofit:adapter-rxjava:$RetroFitVersion"
+}
+
+compileJava {
+    options.encoding = defaultEncoding
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            credentials {
+                username 'nukomvn'
+                password 'Cy+FviFRKEG3'
+            }
+            url 'http://mvn.nukoneko.info/'
+        }
+    }
+}
