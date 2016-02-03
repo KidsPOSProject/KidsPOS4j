@@ -59,7 +59,7 @@ public abstract class DataBase<T extends BaseModelAbstract> {
     }
 
     private boolean Execute(String query) throws SQLException {
-        System.out.println(query);
+//        System.out.println(query);
         Connection connection = getConnection();
         Statement stmt = connection.createStatement();
         boolean ret = stmt.execute(query);
@@ -69,7 +69,7 @@ public abstract class DataBase<T extends BaseModelAbstract> {
     }
 
     public boolean ExecuteQuery(String query, QueryCallback callback) throws SQLException {
-        System.out.println(query);
+//        System.out.println(query);
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
