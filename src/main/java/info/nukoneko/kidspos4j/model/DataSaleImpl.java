@@ -41,13 +41,18 @@ final class DataSaleImpl extends DataBase<ModelSale> {
 
     @Override
     public Observable<ModelSale> findAllRx() {
-        ArrayList<ModelSale> list = findAllImpl(ModelSale.class);
+        ArrayList<ModelSale> list = find(ModelSale.class);
         return Observable.from(list.toArray(new ModelSale[list.size()]));
     }
 
     @Override
     public ArrayList<ModelSale> findAll() {
-        return findAllImpl(ModelSale.class);
+        return find(ModelSale.class);
+    }
+
+    @Override
+    public ArrayList<ModelSale> find(String where) {
+        return find(ModelSale.class, where);
     }
 
     @Override

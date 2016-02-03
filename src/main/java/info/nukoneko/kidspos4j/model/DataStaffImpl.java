@@ -26,13 +26,18 @@ public class DataStaffImpl extends DataBase<ModelStaff> {
 
     @Override
     public Observable<ModelStaff> findAllRx() {
-        ArrayList<ModelStaff> list = findAllImpl(ModelStaff.class);
+        ArrayList<ModelStaff> list = find(ModelStaff.class);
         return Observable.from(list.toArray(new ModelStaff[list.size()]));
     }
 
     @Override
     public ArrayList<ModelStaff> findAll() {
-        return findAllImpl(ModelStaff.class);
+        return find(ModelStaff.class);
+    }
+
+    @Override
+    public ArrayList<ModelStaff> find(String where) {
+        return find(ModelStaff.class, where);
     }
 
     @Override

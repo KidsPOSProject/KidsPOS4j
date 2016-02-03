@@ -26,13 +26,18 @@ final class DataItemGenreImpl extends DataBase<ModelItemGenre> {
 
     @Override
     public Observable<ModelItemGenre> findAllRx() {
-        ArrayList<ModelItemGenre> list = findAllImpl(ModelItemGenre.class);
+        ArrayList<ModelItemGenre> list = find(ModelItemGenre.class);
         return Observable.from(list.toArray(new ModelItemGenre[list.size()]));
     }
 
     @Override
     public ArrayList<ModelItemGenre> findAll() {
-        return findAllImpl(ModelItemGenre.class);
+        return find(ModelItemGenre.class);
+    }
+
+    @Override
+    public ArrayList<ModelItemGenre> find(String where) {
+        return find(ModelItemGenre.class, where);
     }
 
     @Override

@@ -25,13 +25,18 @@ public class DataStoreImpl extends DataBase<ModelStore> {
 
     @Override
     public Observable<ModelStore> findAllRx() {
-        ArrayList<ModelStore> list = findAllImpl(ModelStore.class);
+        ArrayList<ModelStore> list = find(ModelStore.class);
         return Observable.from(list.toArray(new ModelStore[list.size()]));
     }
 
     @Override
     public ArrayList<ModelStore> findAll() {
-        return findAllImpl(ModelStore.class);
+        return find(ModelStore.class);
+    }
+
+    @Override
+    public ArrayList<ModelStore> find(String where) {
+        return find(ModelStore.class, where);
     }
 
     @Override

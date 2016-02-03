@@ -2,6 +2,7 @@ package info.nukoneko.kidspos4j.model;
 
 import rx.Observable;
 
+import javax.management.Query;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -13,6 +14,7 @@ public abstract class DataBase<T extends BaseModelAbstract> {
     abstract String QueryInsert(T item);
     abstract public Observable<T> findAllRx();
     abstract public ArrayList<T> findAll();
+    abstract public ArrayList<T> find(String where);
     abstract void setValues(T model, ResultSet rs) throws SQLException;
     abstract TableKind getTableKind();
 
@@ -57,6 +59,7 @@ public abstract class DataBase<T extends BaseModelAbstract> {
     }
 
     private boolean Execute(String query) throws SQLException {
+        System.out.println(query);
         Connection connection = getConnection();
         Statement stmt = connection.createStatement();
         boolean ret = stmt.execute(query);
@@ -65,21 +68,46 @@ public abstract class DataBase<T extends BaseModelAbstract> {
         return ret;
     }
 
-    protected ArrayList<T> findAllImpl(Class<T> modelItemClass) {
-        ArrayList<T> list = new ArrayList<>();
+    public boolean ExecuteQuery(String query, QueryCallback callback) throws SQLException {
+        System.out.println(query);
         try {
             Connection connection = getConnection();
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM " + getTableKind().getName());
+            ResultSet rs = statement.executeQuery(query);
             while( rs.next() ) {
-                T model = modelItemClass.newInstance();
-                setValues(model, rs);
-                list.add(model);
+                callback.result(rs);
             }
             rs.close();
             statement.close();
             connection.close();
-        } catch (SQLException | InstantiationException | IllegalAccessException e) {
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    protected ArrayList<T> find(Class<T> modelItemClass) {
+        return find(modelItemClass, null);
+    }
+
+    protected ArrayList<T> find(Class<T> modelItemClass, String where) {
+        ArrayList<T> list = new ArrayList<>();
+        try {
+            String base = "SELECT * FROM '" + getTableKind().getName() + "' ";
+            if (where != null) {
+                base += String.format("WHERE %s", where);
+            }
+            ExecuteQuery(base, resultSet -> {
+                try {
+                    T model = modelItemClass.newInstance();
+                    setValues(model, resultSet);
+                    list.add(model);
+                } catch (InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;

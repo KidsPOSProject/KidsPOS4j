@@ -19,6 +19,16 @@ public class ItemFactoryTest extends TestCase {
         ItemFactory.getInstance().truncate();
     }
 
+    private ModelItem getModel(String barcode){
+        ModelItem item = new ModelItem();
+        item.setName("Yamada");
+        item.setBarcode(barcode);
+        item.setPrice(500);
+        item.setShop(100);
+        item.setGenre("Human");
+        return item;
+    }
+
     public void testInsert(){
         DataBase<ModelItem> model = ItemFactory.getInstance();
         assertNotNull(model);
@@ -55,14 +65,24 @@ public class ItemFactoryTest extends TestCase {
         assertFalse(model.insert(item2));
     }
 
-    private ModelItem getModel(String barcode){
-        ModelItem item = new ModelItem();
-        item.setName("Yamada");
-        item.setBarcode(barcode);
-        item.setPrice(500);
-        item.setShop(100);
-        item.setGenre("Human");
-        return item;
+    public void testSearch(){
+        DataBase<ModelItem> model = ItemFactory.getInstance();
+        ModelItem item = getModel("12345");
+        model.insert(item);
+        ModelItem item2 = getModel("67891");
+        model.insert(item2);
+
+        assertEquals(model.findAll().size(), 2);
+        ArrayList<ModelItem> list = model.find("barcode = '12345'");
+        assertEquals(list.size(), 1);
+        assertEquals(model.find("barcode = '67891'").size(), 1);
+
+        ModelItem item3 = list.get(0);
+        assertNotSame(item.getId(), item3.getId());
+        assertEquals(item.getName(), item3.getName());
+        assertEquals(item.getBarcode(), item3.getBarcode());
+        assertEquals(item.getGenre(), item3.getGenre());
+        assertEquals(item.getPrice(), item3.getPrice());
     }
 
     @Override

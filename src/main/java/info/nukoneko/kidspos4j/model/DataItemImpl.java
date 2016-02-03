@@ -30,13 +30,18 @@ final class DataItemImpl extends DataBase<ModelItem> {
 
     @Override
     public Observable<ModelItem> findAllRx() {
-        ArrayList<ModelItem> list = findAllImpl(ModelItem.class);
+        ArrayList<ModelItem> list = find(ModelItem.class);
         return Observable.from(list.toArray(new ModelItem[list.size()]));
     }
 
     @Override
     public ArrayList<ModelItem> findAll() {
-        return findAllImpl(ModelItem.class);
+        return find(ModelItem.class);
+    }
+
+    @Override
+    public ArrayList<ModelItem> find(String where) {
+        return find(ModelItem.class, where);
     }
 
     @Override
