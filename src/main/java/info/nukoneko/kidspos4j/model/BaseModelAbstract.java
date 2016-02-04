@@ -5,5 +5,5 @@ import java.io.Serializable;
 /**
  * Created by atsumi on 2016/02/03.
  */
-interface BaseModelAbstract extends Serializable {
+public interface BaseModelAbstract extends Serializable {
 }

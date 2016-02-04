@@ -1,12 +1,11 @@
 package info.nukoneko.kidspos4j;
 
+
 import info.nukoneko.kidspos4j.api.APIManager;
-import info.nukoneko.kidspos4j.api.Item;
 import info.nukoneko.kidspos4j.api.Sale;
-import info.nukoneko.kidspos4j.model.*;
+import info.nukoneko.kidspos4j.model.ModelSale;
 import rx.Observable;
 import rx.Observer;
-import rx.functions.Func1;
 
 import java.util.List;
 
