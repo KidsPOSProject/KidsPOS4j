@@ -1,5 +1,5 @@
 group 'info.nukoneko'
-version '0.0.6'
+version '0.0.7'
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
@@ -32,7 +32,7 @@ dependencies {
 
 compileJava {
     options.encoding = "UTF-8";
-    String javaVersion = "1.6";
+    String javaVersion = "1.7";
     options.setCompilerArgs(['-source', javaVersion, '-target', javaVersion]);
 }
 
