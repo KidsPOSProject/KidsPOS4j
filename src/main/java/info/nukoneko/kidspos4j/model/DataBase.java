@@ -91,20 +91,25 @@ public abstract class DataBase<T extends BaseModelAbstract> {
         return find(modelItemClass, null);
     }
 
-    protected ArrayList<T> find(Class<T> modelItemClass, String where) {
-        ArrayList<T> list = new ArrayList<>();
+    protected ArrayList<T> find(final Class<T> modelItemClass, String where) {
+        final ArrayList<T> list = new ArrayList<T>();
         try {
             String base = "SELECT * FROM '" + getTableKind().getName() + "' ";
             if (where != null) {
                 base += String.format("WHERE %s", where);
             }
-            ExecuteQuery(base, resultSet -> {
-                try {
-                    T model = modelItemClass.newInstance();
-                    setValues(model, resultSet);
-                    list.add(model);
-                } catch (InstantiationException | IllegalAccessException e) {
-                    e.printStackTrace();
+            ExecuteQuery(base, new QueryCallback() {
+                @Override
+                public void result(ResultSet resultSet) throws SQLException {
+                    try {
+                        T model = modelItemClass.newInstance();
+                        setValues(model, resultSet);
+                        list.add(model);
+                    } catch (InstantiationException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (SQLException e) {
