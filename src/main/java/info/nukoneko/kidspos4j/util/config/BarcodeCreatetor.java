@@ -6,6 +6,7 @@ package info.nukoneko.kidspos4j.util.config;
 public class BarcodeCreatetor {
     final public static Integer BARCODE_NUM = 10;
 
+    // 10 00 15 0004
     final private static Integer MAX_STORE_LENGTH = 2;
     final private static Integer MAX_ITEM_LENGTH = 4;
 

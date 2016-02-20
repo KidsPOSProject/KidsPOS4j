@@ -1,5 +1,7 @@
 package info.nukoneko.kidspos4j.model;
 
+import info.nukoneko.kidspos4j.exception.CannotCreateItemException;
+import info.nukoneko.kidspos4j.util.config.BarcodeCreatetor;
 import rx.Observable;
 
 import java.sql.ResultSet;
@@ -25,6 +27,11 @@ public class DataStaffImpl extends DataBase<ModelStaff> {
     }
 
     @Override
+    String QueryUpdate(ModelStaff item) {
+        return null;
+    }
+
+    @Override
     public Observable<ModelStaff> findAllRx() {
         ArrayList<ModelStaff> list = find(ModelStaff.class);
         return Observable.from(list.toArray(new ModelStaff[list.size()]));
@@ -41,6 +48,21 @@ public class DataStaffImpl extends DataBase<ModelStaff> {
     }
 
     @Override
+    public ModelStaff findFirst(String where) {
+        ArrayList<ModelStaff> arrayList =
+                find(ModelStaff.class, where);
+        if (arrayList.size() == 0) {
+            return null;
+        }
+        return arrayList.get(0);
+    }
+
+    @Override
+    public ModelStaff findFromBarcode(String barcode) {
+        return findFirst(String.format("barcode = '%s'", barcode));
+    }
+
+    @Override
     void setValues(ModelStaff model, ResultSet rs) throws SQLException {
         model.setBarcode(rs.getString("barcode"));
         model.setName(rs.getString("name"));
@@ -49,5 +71,25 @@ public class DataStaffImpl extends DataBase<ModelStaff> {
     @Override
     TableKind getTableKind() {
         return TableKind.STAFF;
+    }
+
+    public ModelStaff createNewStaff(String name)
+            throws CannotCreateItemException {
+        String barcode =
+                BarcodeCreatetor.create(
+                        BarcodeCreatetor.BARCODE_PREFIX.STAFF, 16, findAll().size());
+        // TODO: 16 はflexible...
+        ModelStaff ret = new ModelStaff();
+        ret.setBarcode(barcode);
+        ret.setName(name);
+        if (insert(ret)) {
+            ret = findFromBarcode(barcode);
+            if (ret == null){
+                throw new CannotCreateItemException();
+            }
+            return ret;
+        } else {
+            throw new CannotCreateItemException();
+        }
     }
 }

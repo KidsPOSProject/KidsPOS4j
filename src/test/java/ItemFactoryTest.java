@@ -1,4 +1,6 @@
+import info.nukoneko.kidspos4j.exception.CannotCreateItemException;
 import info.nukoneko.kidspos4j.model.DataBase;
+import info.nukoneko.kidspos4j.model.DataItemImpl;
 import info.nukoneko.kidspos4j.model.ItemFactory;
 import info.nukoneko.kidspos4j.model.ModelItem;
 import junit.framework.TestCase;
@@ -24,8 +26,8 @@ public class ItemFactoryTest extends TestCase {
         item.setName("Yamada");
         item.setBarcode(barcode);
         item.setPrice(500);
-        item.setShop(100);
-        item.setGenre("Human");
+        item.setStoreId(10);
+        item.setGenreId(1);
         return item;
     }
 
@@ -81,8 +83,22 @@ public class ItemFactoryTest extends TestCase {
         assertNotSame(item.getId(), item3.getId());
         assertEquals(item.getName(), item3.getName());
         assertEquals(item.getBarcode(), item3.getBarcode());
-        assertEquals(item.getGenre(), item3.getGenre());
+        assertEquals(item.getGenreId(), item3.getGenreId());
         assertEquals(item.getPrice(), item3.getPrice());
+    }
+
+    public void testCreate() throws CannotCreateItemException {
+        DataItemImpl model = ItemFactory.getInstance();
+        ModelItem item = getModel("12345");
+        ModelItem item1 = model.createNewItem(item.getName(), item.getStoreId(), item.getGenreId(), item.getPrice());
+        assertNotNull(item1);
+
+        assertNotSame(item.getId(), item1.getId());
+        assertEquals(item.getName(), item1.getName());
+        assertNotSame(item.getBarcode(), item1.getBarcode());
+        assertEquals(item.getGenreId(), item1.getGenreId());
+        assertEquals(item.getPrice(), item1.getPrice());
+
     }
 
     @Override

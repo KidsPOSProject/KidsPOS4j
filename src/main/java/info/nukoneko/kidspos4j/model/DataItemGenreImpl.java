@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by atsumi on 2016/02/03.
  */
-final class DataItemGenreImpl extends DataBase<ModelItemGenre> {
+final public class DataItemGenreImpl extends DataBase<ModelItemGenre> {
 
     @Override
     String QueryCreate() {
@@ -22,6 +22,11 @@ final class DataItemGenreImpl extends DataBase<ModelItemGenre> {
         return String
                 .format("INSERT INTO %s(name, store) VALUES('%s','%s')",
                         getTableKind().getName(), item.getName(), item.getStore());
+    }
+
+    @Override
+    String QueryUpdate(ModelItemGenre item) {
+        return null;
     }
 
     @Override
@@ -38,6 +43,21 @@ final class DataItemGenreImpl extends DataBase<ModelItemGenre> {
     @Override
     public ArrayList<ModelItemGenre> find(String where) {
         return find(ModelItemGenre.class, where);
+    }
+
+    @Override
+    public ModelItemGenre findFirst(String where) {
+        ArrayList<ModelItemGenre> arrayList =
+                find(ModelItemGenre.class, where);
+        if (arrayList.size() == 0) {
+            return null;
+        }
+        return arrayList.get(0);
+    }
+
+    @Override
+    public ModelItemGenre findFromBarcode(String barcode) {
+        return null;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package info.nukoneko.kidspos4j.model;
 
+import info.nukoneko.kidspos4j.exception.CannotCreateItemException;
+import info.nukoneko.kidspos4j.util.config.BarcodeCreatetor;
 import rx.Observable;
 
 import java.sql.ResultSet;
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created by atsumi on 2016/02/03.
  */
-final class DataSaleImpl extends DataBase<ModelSale> {
+final public class DataSaleImpl extends DataBase<ModelSale> {
 
     @Override
     String QueryCreate() {
@@ -27,7 +29,7 @@ final class DataSaleImpl extends DataBase<ModelSale> {
     @Override
     String QueryInsert(ModelSale item) {
         return String
-                .format("INSERT INTO %s(barcode, created_at, points, price, items, store, staff) " +
+                .format("INSERT INTO %s (barcode, created_at, points, price, items, store, staff) " +
                                 "VALUES('%s','%s', %d, %d, '%s' %d, %d)",
                         getTableKind().getName(),
                         item.getBarcode(),
@@ -35,8 +37,32 @@ final class DataSaleImpl extends DataBase<ModelSale> {
                         item.getPoints(),
                         item.getPrice(),
                         item.getItems(),
-                        item.getStore(),
-                        item.getStaff());
+                        item.getStoreId(),
+                        item.getStaffId());
+    }
+
+    @Override
+    String QueryUpdate(ModelSale item) {
+        return String
+                .format("UPDATE %s " +
+                                "SET barcode = '%s'," +
+                        "created_at = '%s', " +
+                        "points = '%s', " +
+                        "price = '%s', " +
+                        "items = '%s', " +
+                        "store = '%s', " +
+                        "staff = '%s' " +
+                        "WHERE id = '%s'",
+                        getTableKind().getName(),
+                        item.getBarcode(),
+                        item.getCreatedAt(),
+                        item.getPoints(),
+                        item.getPrice(),
+                        item.getItems(),
+                        item.getStoreId(),
+                        item.getStaffId(),
+                        item.getId()
+                );
     }
 
     @Override
@@ -56,6 +82,21 @@ final class DataSaleImpl extends DataBase<ModelSale> {
     }
 
     @Override
+    public ModelSale findFirst(String where) {
+        ArrayList<ModelSale> arrayList =
+                find(ModelSale.class, where);
+        if (arrayList.size() == 0) {
+            return null;
+        }
+        return arrayList.get(0);
+    }
+
+    @Override
+    public ModelSale findFromBarcode(String barcode) {
+        return findFirst(String.format("barcode = '%s'", barcode));
+    }
+
+    @Override
     void setValues(ModelSale model, ResultSet rs) throws SQLException {
         model.setId(rs.getInt("id"));
         model.setBarcode(rs.getString("barcode"));
@@ -63,12 +104,51 @@ final class DataSaleImpl extends DataBase<ModelSale> {
         model.setPoints(rs.getInt("points"));
         model.setPrice(rs.getInt("price"));
         model.setItems(rs.getString("items"));
-        model.setStore(rs.getInt("store"));
-        model.setStaff(rs.getInt("staff"));
+        model.setStoreId(rs.getInt("store"));
+        model.setStaffId(rs.getInt("staff"));
     }
 
     @Override
     TableKind getTableKind() {
         return TableKind.SALE;
+    }
+
+    //TODO: ModelItem[] から, points, price, items, を取得
+    public ModelSale createNewSale(Integer points,
+                                   Integer prices,
+                                   String items,
+                                   Integer storeId,
+                                   Integer staffId)
+            throws CannotCreateItemException {
+        String barcode =
+                BarcodeCreatetor.create(
+                        BarcodeCreatetor.BARCODE_PREFIX.SALE,
+                        storeId, 0);
+        ModelSale ret = new ModelSale();
+        ret.setBarcode(barcode);
+        ret.setPrice(prices);
+        ret.setCreatedAt(getNowTime());
+        ret.setStoreId(storeId);
+        ret.setItems(items);
+        ret.setPoints(points);
+        ret.setStaffId(staffId);
+
+        if (insert(ret)) {
+            ret = findFromBarcode(barcode);
+            if (ret == null){
+                throw new CannotCreateItemException();
+            }
+            ret.setBarcode(
+                    BarcodeCreatetor.create(
+                            BarcodeCreatetor.BARCODE_PREFIX.SALE,
+                            storeId, ret.getId()));
+            if (update(ret)) {
+                return ret;
+            } else {
+                throw new CannotCreateItemException();
+            }
+        } else {
+            throw new CannotCreateItemException();
+        }
     }
 }

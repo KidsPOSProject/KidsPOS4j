@@ -14,8 +14,8 @@ final public class ModelSale implements BaseModelAbstract {
     private Integer points;
     private Integer price;
     private String items;
-    private Integer store;
-    private Integer staff;
+    private Integer storeId;
+    private Integer staffId;
 
     public Integer getId() {
         return id;
@@ -65,19 +65,19 @@ final public class ModelSale implements BaseModelAbstract {
         this.items = items;
     }
 
-    public Integer getStore() {
-        return store;
+    public Integer getStoreId() {
+        return storeId;
     }
 
-    public void setStore(Integer store) {
-        this.store = store;
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
     }
 
-    public Integer getStaff() {
-        return staff;
+    public Integer getStaffId() {
+        return staffId;
     }
 
-    public void setStaff(Integer staff) {
-        this.staff = staff;
+    public void setStaffId(Integer staffId) {
+        this.staffId = staffId;
     }
 }

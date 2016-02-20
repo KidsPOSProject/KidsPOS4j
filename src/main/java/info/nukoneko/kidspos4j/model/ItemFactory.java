@@ -5,7 +5,7 @@ package info.nukoneko.kidspos4j.model;
  */
 final public class ItemFactory {
     private static DataItemImpl INSTANCE = new DataItemImpl();
-    public static DataBase<ModelItem> getInstance(){
+    public static DataItemImpl getInstance(){
         return INSTANCE;
     }
 }

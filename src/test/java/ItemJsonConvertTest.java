@@ -17,9 +17,9 @@ public class ItemJsonConvertTest extends TestCase {
         item.setId(0);
         item.setName("Tanaka");
         item.setBarcode("12345");
-        item.setGenre("Store");
+        item.setGenreId(1);
         item.setPrice(500);
-        item.setShop(100);
+        item.setStoreId(100);
 
         String json = JSONConvertor.toJSON(item);
         assertNotNull(json);
@@ -30,9 +30,9 @@ public class ItemJsonConvertTest extends TestCase {
         assertEquals(item.getId(), item2.getId());
         assertEquals(item.getName(), item2.getName());
         assertEquals(item.getBarcode(), item2.getBarcode());
-        assertEquals(item.getGenre(), item2.getGenre());
+        assertEquals(item.getGenreId(), item2.getGenreId());
         assertEquals(item.getPrice(), item2.getPrice());
-        assertEquals(item.getShop(), item2.getShop());
+        assertEquals(item.getStoreId(), item2.getStoreId());
 
     }
 

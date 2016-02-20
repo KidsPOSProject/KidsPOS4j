@@ -12,8 +12,8 @@ final public class ModelItem implements BaseModelAbstract {
     private String barcode;
     private String name;
     private Integer price;
-    private Integer shop;
-    private String genre;
+    private Integer storeId;
+    private Integer genreId;
 
     public void setId(Integer id) {
         this.id = id;
@@ -29,14 +29,6 @@ final public class ModelItem implements BaseModelAbstract {
 
     public void setPrice(Integer price) {
         this.price = price;
-    }
-
-    public void setShop(Integer shop) {
-        this.shop = shop;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
     }
 
     public Integer getId() {
@@ -55,11 +47,19 @@ final public class ModelItem implements BaseModelAbstract {
         return price;
     }
 
-    public Integer getShop() {
-        return shop;
+    public Integer getStoreId() {
+        return storeId;
     }
 
-    public String getGenre() {
-        return genre;
+    public void setStoreId(Integer storeId) {
+        this.storeId = storeId;
+    }
+
+    public Integer getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(Integer genreId) {
+        this.genreId = genreId;
     }
 }
