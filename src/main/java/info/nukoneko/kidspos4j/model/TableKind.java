@@ -3,7 +3,7 @@ package info.nukoneko.kidspos4j.model;
 /**
  * Created by atsumi on 2016/02/03.
  */
-enum TableKind {
+public enum TableKind {
     ITEM("item", "item.db"),
     ITEM_GENRE("item_genre", "item.db"),
     SALE("sale", "item.db"),

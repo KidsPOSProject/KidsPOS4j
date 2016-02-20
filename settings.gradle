@@ -1,2 +1,3 @@
 rootProject.name = 'kidspos4j'
+include 'kidspos4j-jdbc'
 

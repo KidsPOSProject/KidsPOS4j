@@ -1,5 +1,6 @@
 package info.nukoneko.kidspos4j.model;
 
+import info.nukoneko.kidspos4j.util.config.SQLiteSetting;
 import rx.Observable;
 
 import javax.management.Query;
@@ -37,54 +38,15 @@ public abstract class DataBase<T extends BaseModelAbstract> {
     }
 
     public final boolean truncate() {
-        try {
-            Execute(String.format("DELETE FROM '%s'", getTableKind().getName()));
-            Execute(String.format("DELETE FROM sqlite_sequence where name='%s'", getTableKind().getName()));
-            Execute("VACUUM");
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
-    private Connection getConnection() throws SQLException {
-        try {
-            Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return DriverManager.getConnection("jdbc:sqlite:"+ getTableKind().getDbPath());
+        return SQLiteSetting.getSqlProvider().truncate(getTableKind());
     }
 
     private boolean Execute(String query) throws SQLException {
-//        System.out.println(query);
-        Connection connection = getConnection();
-        Statement stmt = connection.createStatement();
-        boolean ret = stmt.execute(query);
-        stmt.close();
-        connection.close();
-        return ret;
+        return SQLiteSetting.getSqlProvider().Execute(getTableKind(), query);
     }
 
     public boolean ExecuteQuery(String query, QueryCallback callback) throws SQLException {
-//        System.out.println(query);
-        try {
-            Connection connection = getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            while( rs.next() ) {
-                callback.result(rs);
-            }
-            rs.close();
-            statement.close();
-            connection.close();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return SQLiteSetting.getSqlProvider().ExecuteQuery(getTableKind(), query, callback);
     }
 
     protected ArrayList<T> find(Class<T> modelItemClass) {
