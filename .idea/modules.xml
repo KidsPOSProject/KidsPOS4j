@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/kidspos4j.iml" filepath="$PROJECT_DIR$/kidspos4j.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kidspos4j-jdbc/kidspos4j-jdbc.iml" filepath="$PROJECT_DIR$/kidspos4j-jdbc/kidspos4j-jdbc.iml" />
     </modules>
   </component>
 </project>
