@@ -2,7 +2,6 @@ package info.nukoneko.kidspos4j.util.sqlite;
 
 import info.nukoneko.kidspos4j.model.QueryCallback;
 import info.nukoneko.kidspos4j.model.TableKind;
-import info.nukoneko.kidspos4j.util.config.SQLiteSetting;
 
 import java.sql.*;
 

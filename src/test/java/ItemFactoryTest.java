@@ -4,12 +4,8 @@ import info.nukoneko.kidspos4j.model.DataItemImpl;
 import info.nukoneko.kidspos4j.model.ItemFactory;
 import info.nukoneko.kidspos4j.model.ModelItem;
 import junit.framework.TestCase;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by atsumi on 2016/02/03.

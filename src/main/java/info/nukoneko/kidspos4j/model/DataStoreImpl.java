@@ -1,7 +1,6 @@
 package info.nukoneko.kidspos4j.model;
 
 import info.nukoneko.kidspos4j.exception.CannotCreateItemException;
-import info.nukoneko.kidspos4j.util.config.BarcodeCreatetor;
 import rx.Observable;
 
 import java.sql.ResultSet;

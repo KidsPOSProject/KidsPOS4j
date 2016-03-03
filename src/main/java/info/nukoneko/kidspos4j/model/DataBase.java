@@ -1,16 +1,14 @@
 package info.nukoneko.kidspos4j.model;
 
-import info.nukoneko.kidspos4j.exception.CannotCreateItemException;
-import info.nukoneko.kidspos4j.util.config.BarcodeCreatetor;
 import info.nukoneko.kidspos4j.util.config.SQLiteSetting;
 import rx.Observable;
-import sun.rmi.runtime.Log;
 
-import javax.management.Query;
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by atsumi on 2016/02/03.

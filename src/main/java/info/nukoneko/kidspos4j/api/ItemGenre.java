@@ -1,6 +1,5 @@
 package info.nukoneko.kidspos4j.api;
 
-import info.nukoneko.kidspos4j.model.ModelItem;
 import info.nukoneko.kidspos4j.model.ModelItemGenre;
 import retrofit.http.GET;
 import rx.Observable;

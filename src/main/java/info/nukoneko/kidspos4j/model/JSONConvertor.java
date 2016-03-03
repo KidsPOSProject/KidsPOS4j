@@ -2,10 +2,8 @@ package info.nukoneko.kidspos4j.model;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import info.nukoneko.kidspos4j.model.BaseModelAbstract;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by atsumi on 2016/02/03.
