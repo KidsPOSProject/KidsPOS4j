@@ -1,10 +1,14 @@
 package info.nukoneko.kidspos4j;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.squareup.okhttp.OkHttpClient;
-import retrofit.JacksonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
  * Created by TEJNEK on 2016/02/04.
@@ -31,7 +35,17 @@ final public class KidsPos4jConfig {
         ObjectMapper mapper = new ObjectMapper();
         JacksonConverterFactory factory =
                 JacksonConverterFactory.create(mapper);
-        OkHttpClient client = new OkHttpClient();
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient client =
+                new OkHttpClient.Builder()
+                        .followRedirects(false)
+                        .addInterceptor(interceptor)
+                        .build();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

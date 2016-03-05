@@ -1,10 +1,7 @@
 package info.nukoneko.kidspos4j.api;
 
 import info.nukoneko.kidspos4j.model.ModelItem;
-import retrofit.http.Field;
-import retrofit.http.GET;
-import retrofit.http.POST;
-import retrofit.http.Query;
+import retrofit2.http.*;
 import rx.Observable;
 
 import java.util.List;
@@ -34,6 +31,7 @@ public interface Item {
      * @param newPrice
      * @return
      */
+    @FormUrlEncoded
     @POST("item")
     Observable<ModelItem> updatePrice(@Field("barcode") String barcode,
                                       @Field("new_price") Integer newPrice);

@@ -27,7 +27,9 @@ public class BarcodeCreatetor {
         }
     }
 
-    public static String create(BARCODE_PREFIX codeType, Integer storeID, Integer itemId){
+    public static String create(BARCODE_PREFIX codeType,
+                                Integer storeID,
+                                Integer itemId){
         if (storeID >= Math.pow(10, MAX_STORE_LENGTH) || itemId >= Math.pow(10, MAX_ITEM_LENGTH)) {
             return null;
         }

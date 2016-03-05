@@ -1,7 +1,7 @@
 package info.nukoneko.kidspos4j.api;
 
 import info.nukoneko.kidspos4j.model.ModelStore;
-import retrofit.http.GET;
+import retrofit2.http.*;
 import rx.Observable;
 
 import java.util.List;

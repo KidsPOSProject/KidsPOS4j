@@ -1,10 +1,7 @@
 package info.nukoneko.kidspos4j.api;
 
 import info.nukoneko.kidspos4j.model.ModelStaff;
-import retrofit.http.Field;
-import retrofit.http.GET;
-import retrofit.http.POST;
-import retrofit.http.Query;
+import retrofit2.http.*;
 import rx.Observable;
 
 import java.util.List;
