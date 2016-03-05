@@ -5,7 +5,7 @@ package info.nukoneko.kidspos4j.model;
  */
 final public class StoreFactory {
     private static DataStoreImpl INSTANCE = new DataStoreImpl();
-    public static DataBase<ModelStore> getInstance(){
+    public static DataStoreImpl getInstance(){
         return INSTANCE;
     }
 }

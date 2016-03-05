@@ -35,4 +35,19 @@ public interface Item {
     @POST("item")
     Observable<ModelItem> updatePrice(@Field("barcode") String barcode,
                                       @Field("new_price") Integer newPrice);
+
+    /***
+     * 新しい商品を登録する
+     * @param name 商品名
+     * @param storeId お店ID
+     * @param genreId 商品ジャンルID
+     * @param price 値段
+     * @return 新しい商品情報
+     */
+    @FormUrlEncoded
+    @POST("item/create")
+    Observable<ModelItem> createItem(@Field("itemName") String name,
+                                     @Field("storeId") int storeId,
+                                     @Field("genreId") int genreId,
+                                     @Field("price") int price);
 }

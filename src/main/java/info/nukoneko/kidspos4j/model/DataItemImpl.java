@@ -100,37 +100,22 @@ final public class DataItemImpl extends DataBase<ModelItem> {
     public ModelItem createNewItem(String name,
                                    Integer storeId,
                                    Integer genreId,
-                                   Integer price) {//} throws CannotCreateItemException {
+                                   Integer price) {
         String barcode =
                 BarcodeCreatetor.create(
                 BarcodeCreatetor.BARCODE_PREFIX.ITEM,
                 storeId, findAll().size() + 1);
+
         ModelItem ret = new ModelItem();
         ret.setBarcode(barcode);
         ret.setName(name);
         ret.setPrice(price);
         ret.setStoreId(storeId);
         ret.setGenreId(genreId);
+
         if (insert(ret)) {
-            ret = findFromBarcode(barcode);
-            if (ret == null){
-                return null;
-//                throw new CannotCreateItemException();
-            }
-            ret.setBarcode(
-                    BarcodeCreatetor.create(
-                            BarcodeCreatetor.BARCODE_PREFIX.ITEM,
-                            storeId, ret.getId()));
-            if (update(ret)) {
-                return ret;
-            }
-//            else {
-//                throw new CannotCreateItemException();
-//            }
+            return findFromBarcode(barcode);
         }
-//        else {
-//            throw new CannotCreateItemException();
-//        }
         return null;
     }
 }

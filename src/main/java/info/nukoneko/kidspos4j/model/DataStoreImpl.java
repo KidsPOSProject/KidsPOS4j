@@ -77,19 +77,12 @@ public class DataStoreImpl extends DataBase<ModelStore> {
         return TableKind.STORE;
     }
 
-    public ModelStore createNewStore(String name)
-            throws CannotCreateItemException {
+    public ModelStore createNewStore(String name) {
         ModelStore ret = new ModelStore();
         ret.setName(name);
-
         if (insert(ret)) {
-            ret = findFirst(String.format("name = '%s'", name));
-            if (ret == null) {
-                throw new CannotCreateItemException();
-            }
-            return ret;
-        } else {
-            throw new CannotCreateItemException();
+            return findFirst(String.format("name = '%s'", name));
         }
+        return null;
     }
 }

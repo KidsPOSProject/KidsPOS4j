@@ -5,7 +5,7 @@ package info.nukoneko.kidspos4j.model;
  */
 final public class StaffFactory {
     private static DataStaffImpl INSTANCE = new DataStaffImpl();
-    public static DataBase<ModelStaff> getInstance(){
+    public static DataStaffImpl getInstance(){
         return INSTANCE;
     }
 }

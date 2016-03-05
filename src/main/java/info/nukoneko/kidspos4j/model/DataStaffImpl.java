@@ -73,23 +73,18 @@ public class DataStaffImpl extends DataBase<ModelStaff> {
         return TableKind.STAFF;
     }
 
-    public ModelStaff createNewStaff(String name)
-            throws CannotCreateItemException {
+    public ModelStaff createNewStaff(String name) {
         String barcode =
                 BarcodeCreatetor.create(
-                        BarcodeCreatetor.BARCODE_PREFIX.STAFF, 16, findAll().size());
-        // TODO: 16 はflexible...
+                        BarcodeCreatetor.BARCODE_PREFIX.STAFF,
+                        16, findAll().size() + 1);
+
         ModelStaff ret = new ModelStaff();
         ret.setBarcode(barcode);
         ret.setName(name);
         if (insert(ret)) {
-            ret = findFromBarcode(barcode);
-            if (ret == null){
-                throw new CannotCreateItemException();
-            }
-            return ret;
-        } else {
-            throw new CannotCreateItemException();
+            return findFromBarcode(barcode);
         }
+        return null;
     }
 }

@@ -23,8 +23,9 @@ public interface Staff {
      * @param staffJson
      * @return
      */
-    @POST("staff")
-    Observable<ModelStaff> createStaff(@Field("new_staff") String staffJson);
+    @FormUrlEncoded
+    @POST("staff/create")
+    Observable<ModelStaff> createStaff(@Field("name") String name);
 
     /***
      * スタッフの情報を取得する。いなかったらnullを返す

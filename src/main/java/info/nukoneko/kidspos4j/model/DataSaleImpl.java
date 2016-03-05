@@ -30,7 +30,7 @@ final public class DataSaleImpl extends DataBase<ModelSale> {
     String QueryInsert(ModelSale item) {
         return String
                 .format("INSERT INTO %s (barcode, created_at, points, price, items, store, staff) " +
-                                "VALUES('%s','%s', %d, %d, '%s' %d, %d)",
+                                "VALUES('%s','%s', %d, %d, '%s', %d, %d)",
                         getTableKind().getName(),
                         item.getBarcode(),
                         item.getCreatedAt(),
@@ -118,12 +118,12 @@ final public class DataSaleImpl extends DataBase<ModelSale> {
                                    Integer prices,
                                    String items,
                                    Integer storeId,
-                                   Integer staffId)
-            throws CannotCreateItemException {
+                                   Integer staffId) {
         String barcode =
                 BarcodeCreatetor.create(
                         BarcodeCreatetor.BARCODE_PREFIX.SALE,
-                        storeId, 0);
+                        storeId, findAll().size() + 1);
+
         ModelSale ret = new ModelSale();
         ret.setBarcode(barcode);
         ret.setPrice(prices);
@@ -134,21 +134,8 @@ final public class DataSaleImpl extends DataBase<ModelSale> {
         ret.setStaffId(staffId);
 
         if (insert(ret)) {
-            ret = findFromBarcode(barcode);
-            if (ret == null){
-                throw new CannotCreateItemException();
-            }
-            ret.setBarcode(
-                    BarcodeCreatetor.create(
-                            BarcodeCreatetor.BARCODE_PREFIX.SALE,
-                            storeId, ret.getId()));
-            if (update(ret)) {
-                return ret;
-            } else {
-                throw new CannotCreateItemException();
-            }
-        } else {
-            throw new CannotCreateItemException();
+            return findFromBarcode(barcode);
         }
+        return null;
     }
 }

@@ -22,19 +22,13 @@ public class Main {
 
         // 売上API
         Sale sale = APIManager.Sale();
+        ModelSale sale2 =
+                sale.createSale(3, 1200, "1,2,3", 1, 123456789).toBlocking().first();
+        System.out.println(JSONConvertor.toJSON(sale2));
 
-        // 売上一覧を取得
-        sale.getList().flatMap(new Func1<List<ModelSale>, Observable<ModelSale>>() {
-            @Override
-            public Observable<ModelSale> call(List<ModelSale> modelSales) {
-                return Observable.from(modelSales);
-            }
-        }).subscribe(new Action1<ModelSale>() {
-            @Override
-            public void call(ModelSale sale) {
-                System.out.print(JSONConvertor.toJSON(sale));
-            }
-        });
 
+
+//        sale.createSale(sakeJson)
+//        sale.updateSale(newSaleJson)
     }
 }

@@ -22,24 +22,46 @@ public interface Sale {
      * @param barcode
      * @return
      */
-    @GET("sale")
-    Observable<ModelSale> getSale(@Query("barcode") String barcode);
+    @GET("sale/{barcode}")
+    Observable<ModelSale> getSale(
+            @Path("barcode") String barcode);
 
     /***
      * 重要!! 売上が送信されてきたので受け取る
      * サーバーではレシート印刷もするよ (予定)
-     * @param saleJson
-     * @return
+     * @param points 商品点数
+     * @param price 合計金額
+     * @param items 購入した商品ID  1,2,3,
+     * @param storeId 購入した商店のID
+     * @param staffId レジを担当したスタッフID
+     * @return 新しい売上情報
      */
-    @POST("sale")
-    Observable<ModelSale> createSale(@Field("sale") String saleJson);
+    @FormUrlEncoded
+    @POST("sale/create")
+    Observable<ModelSale> createSale(
+            @Field("points") int points,
+            @Field("price") int price,
+            @Field("items") String items,
+            @Field("storeId") int storeId,
+            @Field("staffId") int staffId);
 
     /***
      * 売上情報を更新する
-     * @param newSaleJson
-     * @return
+     * @param barcode targetBarcode
+     * @param points 商品点数
+     * @param price 合計金額
+     * @param items 購入した商品ID  1,2,3,
+     * @param storeId 購入した商店のID
+     * @param staffId レジを担当したスタッフID
+     * @return 更新した売上情報
      */
-    @POST("sale/update")
+    @FormUrlEncoded
+    @POST("sale/{barcode}/update")
     Observable<ModelSale> updateSale(
-            @Field("newSale") String newSaleJson);
+            @Path("barcode") String barcode,
+            @Field("points") int points,
+            @Field("price") int price,
+            @Field("items") String items,
+            @Field("storeId") int storeId,
+            @Field("staffId") int staffId);
 }
