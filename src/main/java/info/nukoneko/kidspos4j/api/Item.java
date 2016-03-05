@@ -15,26 +15,29 @@ public interface Item {
      * @return
      */
     @GET("item/list")
-    Observable<List<ModelItem>> getList();
+    Observable<List<ModelItem>> getList(@Query("limit") Integer limit);
 
     /***
      * 商品を取得する。無かったらnullを返す
      * @param barcode
      * @return
      */
-    @GET("item")
-    Observable<ModelItem> getItem(@Query("barcode") String barcode);
+    @GET("item/{barcode}")
+    Observable<ModelItem> readItem(@Path("barcode") String barcode);
 
     /***
-     * 商品の値段を更新する。
+     * 商品のデータ更新する。
      * @param barcode
      * @param newPrice
      * @return
      */
     @FormUrlEncoded
-    @POST("item")
-    Observable<ModelItem> updatePrice(@Field("barcode") String barcode,
-                                      @Field("new_price") Integer newPrice);
+    @POST("item/{barcode}/update")
+    Observable<ModelItem> updateItem(@Path("barcode") String barcode,
+                                      @Field("itemName") String name,
+                                      @Field("storeId") int storeId,
+                                      @Field("genreId") int genreId,
+                                      @Field("price") int price);
 
     /***
      * 新しい商品を登録する

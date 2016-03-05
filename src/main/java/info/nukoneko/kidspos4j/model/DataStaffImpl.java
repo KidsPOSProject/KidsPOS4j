@@ -77,7 +77,7 @@ public class DataStaffImpl extends DataBase<ModelStaff> {
         String barcode =
                 BarcodeCreatetor.create(
                         BarcodeCreatetor.BARCODE_PREFIX.STAFF,
-                        16, findAll().size() + 1);
+                        16, getNewItemId());
 
         ModelStaff ret = new ModelStaff();
         ret.setBarcode(barcode);
@@ -86,5 +86,17 @@ public class DataStaffImpl extends DataBase<ModelStaff> {
             return findFromBarcode(barcode);
         }
         return null;
+    }
+
+    public int getNewItemId(){
+        int last = findAll().size();
+        int itemId;
+        if (last > 0) {
+            String _bar = findAll().get(last - 1).getBarcode();
+            _bar = _bar.substring(_bar.length() - BarcodeCreatetor.MAX_ITEM_LENGTH);
+            return (Integer.parseInt(_bar) + 1);
+        } else {
+            return 1;
+        }
     }
 }

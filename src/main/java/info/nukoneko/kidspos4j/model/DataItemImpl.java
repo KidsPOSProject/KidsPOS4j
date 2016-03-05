@@ -101,10 +101,9 @@ final public class DataItemImpl extends DataBase<ModelItem> {
                                    Integer storeId,
                                    Integer genreId,
                                    Integer price) {
-        String barcode =
-                BarcodeCreatetor.create(
+        String barcode = BarcodeCreatetor.create(
                 BarcodeCreatetor.BARCODE_PREFIX.ITEM,
-                storeId, findAll().size() + 1);
+                storeId, getNewItemId());
 
         ModelItem ret = new ModelItem();
         ret.setBarcode(barcode);
@@ -117,5 +116,17 @@ final public class DataItemImpl extends DataBase<ModelItem> {
             return findFromBarcode(barcode);
         }
         return null;
+    }
+
+    public int getNewItemId(){
+        int last = findAll().size();
+        int itemId;
+        if (last > 0) {
+            String _bar = findAll().get(last - 1).getBarcode();
+            _bar = _bar.substring(_bar.length() - BarcodeCreatetor.MAX_ITEM_LENGTH);
+            return (Integer.parseInt(_bar) + 1);
+        } else {
+            return  1;
+        }
     }
 }
