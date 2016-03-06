@@ -19,18 +19,15 @@ public class Main {
         // ok Sale API
         // ok Staff API
 
-        Store store = APIManager.Store();
-        store.getList()
-                .flatMap(new Func1<List<ModelStore>, Observable<ModelStore>>() {
-            @Override
-            public Observable<ModelStore> call(List<ModelStore> modelStores) {
-                return Observable.from(modelStores);
-            }
-        }).subscribe(new Action1<ModelStore>() {
-            @Override
-            public void call(ModelStore modelStore) {
-                System.out.println(modelStore.getName());
-            }
-        });
+//        Sale sale = APIManager.Sale();
+//        ModelSale sale1 = sale.createSale(3555, 5, 1000, "3,3,3,3,3", 999, 999)
+//                .onErrorReturn(new Func1<Throwable, ModelSale>() {
+//                    @Override
+//                    public ModelSale call(Throwable throwable) {
+//                        return null;
+//                    }
+//                })
+//                .toBlocking().first();
+//        System.out.println(sale1);
     }
 }

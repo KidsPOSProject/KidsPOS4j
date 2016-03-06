@@ -30,7 +30,14 @@ public class BarcodeCreatetor {
     public static String create(BARCODE_PREFIX codeType,
                                 Integer storeID,
                                 Integer itemId){
-        if (storeID >= Math.pow(10, MAX_STORE_LENGTH) || itemId >= Math.pow(10, MAX_ITEM_LENGTH)) {
+        if (storeID >= Math.pow(10, MAX_STORE_LENGTH) ||
+                itemId >= Math.pow(10, MAX_ITEM_LENGTH)) {
+            System.out.println("StoreID");
+            System.out.println(storeID >= Math.pow(10, MAX_STORE_LENGTH));
+
+            System.out.println("ItemID");
+            System.out.println(itemId >= Math.pow(10, MAX_ITEM_LENGTH));
+            System.out.println("おかしい 長さ");
             return null;
         }
         String format = "%s%s%3$0" + MAX_STORE_LENGTH + "d%4$0" + MAX_ITEM_LENGTH + "d";
@@ -38,6 +45,8 @@ public class BarcodeCreatetor {
         if (gen.length() == BARCODE_NUM){
             return gen;
         } else {
+            System.out.println("これバーコードの長さじゃない");
+            System.out.println("これ" + gen);
             return null;
         }
     }

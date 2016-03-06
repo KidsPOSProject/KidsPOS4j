@@ -39,11 +39,12 @@ public interface Sale {
     @FormUrlEncoded
     @POST("sale/create")
     Observable<ModelSale> createSale(
+            @Field("received") Integer receivedMoney,
             @Field("points") Integer points,
             @Field("price") Integer price,
             @Field("items") String items,
             @Field("storeId") Integer storeId,
-            @Field("staffId") Integer staffId);
+            @Field("staffBarcode") String staffBarcode);
 
     /***
      * 売上情報を更新する

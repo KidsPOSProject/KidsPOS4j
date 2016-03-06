@@ -43,7 +43,7 @@ final public class KidsPos4jConfig {
         OkHttpClient client =
                 new OkHttpClient.Builder()
                         .followRedirects(false)
-//                        .addInterceptor(interceptor)
+                        .addInterceptor(interceptor)
                         .build();
 
         retrofit = new Retrofit.Builder()
