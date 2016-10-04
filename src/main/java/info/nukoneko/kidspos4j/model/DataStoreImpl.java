@@ -1,6 +1,5 @@
 package info.nukoneko.kidspos4j.model;
 
-import info.nukoneko.kidspos4j.exception.CannotCreateItemException;
 import rx.Observable;
 
 import java.sql.ResultSet;

@@ -1,36 +1,24 @@
 group 'info.nukoneko'
-version '1.0.0'
+version '1.0.1'
 
 apply plugin: 'java'
 apply plugin: 'maven-publish'
-
-/// Lastest Version 2016-03-05
-def JUnitVersion = '4.12'
-def JacksonVersion = '2.7.2'
-def SQLiteJDBCVersion = '3.7.2'
-def OkHTTPVersion = '3.2.0'
-def RetroFitVersion = '2.0.0-beta4'
-def RxJavaVersion = '1.1.1'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testCompile "junit:junit:$JUnitVersion"
+    testCompile "junit:junit:+"
 
-    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$JacksonVersion"
+    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:+"
 
-    compile "org.xerial:sqlite-jdbc:$SQLiteJDBCVersion"
+    compile "org.xerial:sqlite-jdbc:+"
 
-    compile "io.reactivex:rxjava:$RxJavaVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:+"
 
-    compile "com.squareup.okhttp3:okhttp:$OkHTTPVersion"
-    compile "com.squareup.okhttp3:logging-interceptor:$OkHTTPVersion"
-
-    compile "com.squareup.retrofit2:retrofit:$RetroFitVersion"
-    compile "com.squareup.retrofit2:converter-jackson:$RetroFitVersion"
-    compile "com.squareup.retrofit2:adapter-rxjava:$RetroFitVersion"
+    compile "com.squareup.retrofit2:converter-jackson:+"
+    compile "com.squareup.retrofit2:adapter-rxjava:+"
 }
 
 compileJava {
@@ -47,11 +35,7 @@ publishing {
     }
     repositories {
         maven {
-            credentials {
-                username 'nukomvn'
-                password 'Cy+FviFRKEG3'
-            }
-            url 'http://mvn.nukoneko.info/'
+            url "file:${rootDir}/maven-repo"
         }
     }
 }

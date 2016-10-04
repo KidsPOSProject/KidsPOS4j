@@ -3,15 +3,18 @@ package info.nukoneko.kidspos4j.util.config;
 /**
  * Created by atsumi on 2016/02/04.
  */
-public class BarcodeCreatetor {
-    final public static Integer BARCODE_NUM = 10;
+public class BarcodeCreator {
+    private final static Integer BARCODE_NUM = 10;
 
     // 10 00 15 0004
-    final public static Integer MAX_STORE_LENGTH = 2;
+    private final static Integer MAX_STORE_LENGTH = 2;
     final public static Integer MAX_ITEM_LENGTH = 4;
 
     private final static String BARCODE_PREFIX_BASE = "10";
 
+    /**
+     * バーコードの種類についての列挙
+     */
     public enum BARCODE_PREFIX {
         STAFF("00"),
         ITEM("01"),
@@ -27,6 +30,13 @@ public class BarcodeCreatetor {
         }
     }
 
+    /**
+     * バーコード文字列の作成
+     * @param codeType バーコード種類
+     * @param storeID 販売するお店ID
+     * @param itemId 販売する商品のID
+     * @return 生成された文字列
+     */
     public static String create(BARCODE_PREFIX codeType,
                                 Integer storeID,
                                 Integer itemId){

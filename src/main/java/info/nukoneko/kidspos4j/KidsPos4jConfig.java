@@ -1,10 +1,7 @@
 package info.nukoneko.kidspos4j;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -15,46 +12,51 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
  */
 final public class KidsPos4jConfig {
     private static boolean debug = false;
-    private static String baseUrl = "http://127.0.0.1:8080/api/";
+
+    private static boolean useSSL = false;
+    private static String defaultPath = "api/";
+    private static String defaultDomainPort = "127.0.0.1:8080";
     private static volatile Retrofit retrofit;
 
     public static void setDebug(boolean _debug) {
-       debug = _debug;
+        debug = _debug;
     }
 
     public static boolean isDebug() {
         return debug;
     }
 
-    public static void setBaseUrl(String _baseUrl) {
-        baseUrl = _baseUrl;
+    public static void setDefaultUrl(boolean _useSSL, String _domainPort) {
+        useSSL = _useSSL;
+        defaultDomainPort = _domainPort;
         initRetrofit();
     }
 
-    private static void initRetrofit(){
+    private static void initRetrofit() {
         ObjectMapper mapper = new ObjectMapper();
         JacksonConverterFactory factory =
                 JacksonConverterFactory.create(mapper);
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient client =
-                new OkHttpClient.Builder()
-                        .followRedirects(false)
-                        .addInterceptor(interceptor)
-                        .build();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder().followRedirects(false);
+        if (debug) {
+            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(interceptor);
+        }
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(buildUrl())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(factory)
-                .client(client)
+                .client(builder.build())
                 .build();
     }
 
-    public static Retrofit getRetrofit(){
+    private static String buildUrl() {
+        return String.format("http%s://%s/%s", useSSL ? "s" : "", defaultDomainPort, defaultPath);
+    }
+
+    public static Retrofit getRetrofit() {
         if (retrofit == null) initRetrofit();
         return retrofit;
     }

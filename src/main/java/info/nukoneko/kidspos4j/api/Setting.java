@@ -1,6 +1,6 @@
 package info.nukoneko.kidspos4j.api;
 
-import retrofit2.http.*;
+import retrofit2.http.GET;
 import rx.Observable;
 
 /**

@@ -1,14 +1,6 @@
 package info.nukoneko.kidspos4j;
 
 
-import info.nukoneko.kidspos4j.api.*;
-import info.nukoneko.kidspos4j.model.*;
-import rx.Observable;
-import rx.functions.Action1;
-import rx.functions.Func1;
-
-import java.util.List;
-
 /**
  * Created by TEJNEK on 2016/02/03.
  */

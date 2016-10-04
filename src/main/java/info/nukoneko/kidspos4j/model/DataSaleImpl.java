@@ -1,7 +1,6 @@
 package info.nukoneko.kidspos4j.model;
 
-import info.nukoneko.kidspos4j.exception.CannotCreateItemException;
-import info.nukoneko.kidspos4j.util.config.BarcodeCreatetor;
+import info.nukoneko.kidspos4j.util.config.BarcodeCreator;
 import rx.Observable;
 
 import java.sql.ResultSet;
@@ -120,8 +119,8 @@ final public class DataSaleImpl extends DataBase<ModelSale> {
                                    Integer storeId,
                                    Integer staffId) {
         String barcode =
-                BarcodeCreatetor.create(
-                        BarcodeCreatetor.BARCODE_PREFIX.SALE,
+                BarcodeCreator.create(
+                        BarcodeCreator.BARCODE_PREFIX.SALE,
                         storeId, getNewItemId());
 
         System.out.println(barcode);
@@ -148,7 +147,7 @@ final public class DataSaleImpl extends DataBase<ModelSale> {
             if (_bar == null){
                 _bar = String.valueOf(findAll().get(last - 1).getId());
             }
-            _bar = _bar.substring(_bar.length() - BarcodeCreatetor.MAX_ITEM_LENGTH);
+            _bar = _bar.substring(_bar.length() - BarcodeCreator.MAX_ITEM_LENGTH);
 
             System.out.println(_bar);
             if (_bar == null){
