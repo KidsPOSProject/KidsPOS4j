@@ -17,7 +17,7 @@ public abstract class DataBase<T extends BaseModelAbstract> {
     abstract String QueryCreate();
     abstract String QueryInsert(T item);
     abstract String QueryUpdate(T item);
-    abstract public Observable<T> findAllRx();
+    abstract public Observable<List<T>> findAllRx();
     abstract public ArrayList<T> findAll();
     abstract public ArrayList<T> find(String where);
     abstract public T findFirst(String where);

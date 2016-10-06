@@ -6,6 +6,7 @@ import rx.Observable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by atsumi on 2016/02/03.
@@ -51,9 +52,8 @@ final public class DataItemImpl extends DataBase<ModelItem> {
     }
 
     @Override
-    public Observable<ModelItem> findAllRx() {
-        ArrayList<ModelItem> list = find(ModelItem.class);
-        return Observable.from(list.toArray(new ModelItem[list.size()]));
+    public Observable<List<ModelItem>> findAllRx() {
+        return Observable.from(find(ModelItem.class)).toList();
     }
 
     @Override
