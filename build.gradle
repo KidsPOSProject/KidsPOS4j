@@ -28,6 +28,7 @@ compileJava {
     options.setCompilerArgs(['-source', javaVersion, '-target', javaVersion]);
 }
 
+// In-House Maven
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -39,4 +40,10 @@ publishing {
             url "file:${rootDir}/maven-repo"
         }
     }
+}
+
+// Coverage using JaCoCo
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/reports/jacoco")
 }
