@@ -2,7 +2,7 @@ group 'info.nukoneko'
 version '1.0.1'
 
 apply plugin: 'java'
-apply plugin: 'maven-publish'
+apply plugin: 'maven'
 apply plugin: 'jacoco'
 
 repositories {
@@ -26,20 +26,6 @@ compileJava {
     options.encoding = "UTF-8";
     String javaVersion = "1.7";
     options.setCompilerArgs(['-source', javaVersion, '-target', javaVersion]);
-}
-
-// In-House Maven
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url "file:${rootDir}/maven-repo"
-        }
-    }
 }
 
 // Coverage using JaCoCo
