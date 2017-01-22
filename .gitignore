@@ -8,8 +8,11 @@
 *.iws
 /out/
 /.gradle/
-/build/
 .idea_modules/
 *.db
 local.properties
 gradle.properties
+
+.idea/inspectionProfiles/
+src/main/resources/
+src/test/resources/
