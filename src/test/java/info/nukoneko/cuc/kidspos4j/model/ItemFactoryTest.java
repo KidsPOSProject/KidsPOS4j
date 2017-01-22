@@ -4,9 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Created by atsumi on 2016/10/06.
- */
 public class ItemFactoryTest {
     @Before
     public void setUp() throws Exception {
