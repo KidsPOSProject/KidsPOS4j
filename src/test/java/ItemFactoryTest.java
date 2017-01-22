@@ -1,16 +1,11 @@
-import info.nukoneko.kidspos4j.CommonTest;
-import info.nukoneko.kidspos4j.exception.CannotCreateItemException;
-import info.nukoneko.kidspos4j.model.DataBase;
-import info.nukoneko.kidspos4j.model.DataItemImpl;
-import info.nukoneko.kidspos4j.model.ItemFactory;
-import info.nukoneko.kidspos4j.model.ModelItem;
+import info.nukoneko.cuc.kidspos4j.CommonTest;
+import info.nukoneko.cuc.kidspos4j.model.DataBase;
+import info.nukoneko.cuc.kidspos4j.model.ItemFactory;
+import info.nukoneko.cuc.kidspos4j.model.ModelItem;
 import junit.framework.TestCase;
 
 import java.util.ArrayList;
 
-/**
- * Created by atsumi on 2016/02/03.
- */
 public class ItemFactoryTest extends TestCase {
     @Override
     protected void setUp() throws Exception {

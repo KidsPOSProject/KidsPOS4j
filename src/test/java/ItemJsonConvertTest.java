@@ -1,10 +1,7 @@
-import info.nukoneko.kidspos4j.model.JSONConvertor;
-import info.nukoneko.kidspos4j.model.ModelItem;
+import info.nukoneko.cuc.kidspos4j.model.JSONConvertor;
+import info.nukoneko.cuc.kidspos4j.model.ModelItem;
 import junit.framework.TestCase;
 
-/**
- * Created by atsumi on 2016/02/03.
- */
 public class ItemJsonConvertTest extends TestCase {
 
     @Override
