@@ -1,13 +1,24 @@
 group 'info.nukoneko.cuc'
-version '1.0.1'
+version '1.0.2'
 
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'jacoco'
 
+
+def javaVersion = "1.7"
+def defaultEncoding = 'UTF-8'
+
+//noinspection GroovyUnusedAssignment
+sourceCompatibility = javaVersion
+//noinspection GroovyUnusedAssignment
+targetCompatibility = javaVersion
+
 repositories {
     mavenCentral()
 }
+
+source
 
 dependencies {
     testCompile "junit:junit:4.12"
@@ -23,8 +34,7 @@ dependencies {
 }
 
 compileJava {
-    options.encoding = "UTF-8"
-    String javaVersion = "1.7"
+    options.encoding = defaultEncoding
     options.setCompilerArgs(['-source', javaVersion, '-target', javaVersion])
     return void
 }
