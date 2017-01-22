@@ -2,9 +2,6 @@ package info.nukoneko.cuc.kidspos4j;
 
 import info.nukoneko.cuc.kidspos4j.model.ModelItem;
 
-/**
- * Created by atsumi on 2016/10/06.
- */
 public class CommonTest {
     public static ModelItem getModel(String barcode){
         ModelItem item = new ModelItem();

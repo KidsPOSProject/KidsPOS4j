@@ -2,9 +2,6 @@ package info.nukoneko.cuc.kidspos4j.model;
 
 import org.junit.Test;
 
-/**
- * Created by atsumi on 2016/10/06.
- */
 public class ModelItemTest {
     @Test
     public void setId() throws Exception {

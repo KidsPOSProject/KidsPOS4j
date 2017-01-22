@@ -2,10 +2,6 @@ package info.nukoneko.cuc.kidspos4j.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-/**
- * Created by atsumi on 2016/02/03.
- */
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 final public class ModelStaff implements BaseModel {
     private String barcode;

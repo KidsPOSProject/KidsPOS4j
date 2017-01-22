@@ -11,9 +11,6 @@ import java.util.List;
 import static info.nukoneko.cuc.kidspos4j.CommonTest.getModel;
 import static org.junit.Assert.*;
 
-/**
- * Created by atsumi on 2016/10/06.
- */
 public class DataItemImplTest {
 
     @Before

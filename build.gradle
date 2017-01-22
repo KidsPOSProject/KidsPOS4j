@@ -26,6 +26,7 @@ compileJava {
     options.encoding = "UTF-8"
     String javaVersion = "1.7"
     options.setCompilerArgs(['-source', javaVersion, '-target', javaVersion])
+    return void
 }
 
 // Coverage using JaCoCo

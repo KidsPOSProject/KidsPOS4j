@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@SuppressWarnings({"TryWithIdenticalCatches", "Convert2Diamond"})
 public abstract class DataBase<T extends BaseModel> {
     abstract String QueryCreate();
     abstract String QueryInsert(T item);

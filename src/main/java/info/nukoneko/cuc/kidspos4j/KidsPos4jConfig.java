@@ -7,6 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
+@SuppressWarnings("FieldCanBeLocal")
 final public class KidsPos4jConfig {
     private static boolean debug = false;
 
