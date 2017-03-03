@@ -1,6 +1,7 @@
 package info.nukoneko.cuc.kidspos4j.model;
 
 import info.nukoneko.cuc.kidspos4j.util.config.BarcodeCreator;
+import info.nukoneko.cuc.kidspos4j.util.config.BarcodeRule;
 import rx.Observable;
 
 import java.sql.ResultSet;
@@ -89,8 +90,8 @@ final public class DataItemImpl extends DataBase<ModelItem> {
     }
 
     @Override
-    TableKind getTableKind() {
-        return TableKind.ITEM;
+    TABLE_KIND getTableKind() {
+        return TABLE_KIND.ITEM;
     }
 
     public ModelItem createNewItem(String name,
@@ -98,7 +99,7 @@ final public class DataItemImpl extends DataBase<ModelItem> {
                                    Integer genreId,
                                    Integer price) {
         String barcode = BarcodeCreator.create(
-                BarcodeCreator.BARCODE_PREFIX.ITEM,
+                BarcodeRule.BARCODE_PREFIX.ITEM,
                 storeId, getNewItemId());
 
         ModelItem ret = new ModelItem();
@@ -118,7 +119,7 @@ final public class DataItemImpl extends DataBase<ModelItem> {
         int last = findAll().size();
         if (last > 0) {
             String _bar = findAll().get(last - 1).getBarcode();
-            _bar = _bar.substring(_bar.length() - BarcodeCreator.MAX_ITEM_LENGTH);
+            _bar = _bar.substring(_bar.length() - BarcodeRule.MAX_TYPE_VALUE2_LENGTH);
             return (Integer.parseInt(_bar) + 1);
         } else {
             return  1;

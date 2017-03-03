@@ -65,7 +65,7 @@ final public class DataItemGenreImpl extends DataBase<ModelItemGenre> {
     }
 
     @Override
-    TableKind getTableKind() {
-        return TableKind.ITEM_GENRE;
+    TABLE_KIND getTableKind() {
+        return TABLE_KIND.ITEM_GENRE;
     }
 }

@@ -1,13 +1,13 @@
 package info.nukoneko.cuc.kidspos4j.util.sqlite;
 
 import info.nukoneko.cuc.kidspos4j.model.QueryCallback;
-import info.nukoneko.cuc.kidspos4j.model.TableKind;
+import info.nukoneko.cuc.kidspos4j.model.TABLE_KIND;
 
 import java.sql.*;
 
 public class JDBCSqlProvider implements ISql {
     @Override
-    public boolean ExecuteQuery(TableKind tableKind, String query, QueryCallback callback) throws SQLException {
+    public boolean ExecuteQuery(TABLE_KIND tableKind, String query, QueryCallback callback) throws SQLException {
         try {
             Connection connection = getConnection(tableKind);
             Statement statement = connection.createStatement();
@@ -26,7 +26,7 @@ public class JDBCSqlProvider implements ISql {
     }
 
     @Override
-    public boolean Execute(TableKind tableKind, String query) throws SQLException {
+    public boolean Execute(TABLE_KIND tableKind, String query) throws SQLException {
         Connection connection = getConnection(tableKind);
         Statement stmt = connection.createStatement();
         boolean ret = stmt.execute(query);
@@ -36,7 +36,7 @@ public class JDBCSqlProvider implements ISql {
     }
 
     @Override
-    public boolean truncate(TableKind tableKind) {
+    public boolean truncate(TABLE_KIND tableKind) {
         try {
             Execute(tableKind, String.format("DELETE FROM '%s'", tableKind.getName()));
             Execute(tableKind, String.format("DELETE FROM sqlite_sequence where name='%s'", tableKind.getName()));
@@ -49,7 +49,7 @@ public class JDBCSqlProvider implements ISql {
         return false;
     }
 
-    private Connection getConnection(TableKind tableKind) throws SQLException {
+    private Connection getConnection(TABLE_KIND tableKind) throws SQLException {
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
