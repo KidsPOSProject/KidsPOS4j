@@ -21,7 +21,7 @@ public abstract class DataBase<T extends BaseModel> {
     abstract public T findFirst(String where);
     abstract public T findFromBarcode(String barcode);
     abstract void setValues(T model, ResultSet rs) throws SQLException;
-    abstract TableKind getTableKind();
+    abstract TABLE_KIND getTableKind();
 
     DataBase(){
         try {

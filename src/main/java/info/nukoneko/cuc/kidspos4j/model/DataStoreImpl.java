@@ -69,8 +69,8 @@ public class DataStoreImpl extends DataBase<ModelStore> {
     }
 
     @Override
-    TableKind getTableKind() {
-        return TableKind.STORE;
+    TABLE_KIND getTableKind() {
+        return TABLE_KIND.STORE;
     }
 
     public ModelStore createNewStore(String name) {
