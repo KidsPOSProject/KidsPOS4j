@@ -18,7 +18,8 @@ public class BarcodeCreator {
         SALE("02");
 
         private final String prefix;
-        BARCODE_PREFIX(String prefix){
+
+        BARCODE_PREFIX(String prefix) {
             this.prefix = prefix;
         }
 
@@ -29,31 +30,23 @@ public class BarcodeCreator {
 
     /**
      * バーコード文字列の作成
+     *
      * @param codeType バーコード種類
-     * @param storeID 販売するお店ID
-     * @param itemId 販売する商品のID
+     * @param storeID  販売するお店ID
+     * @param itemId   販売する商品のID
      * @return 生成された文字列
      */
     public static String create(BARCODE_PREFIX codeType,
                                 Integer storeID,
-                                Integer itemId){
-        if (storeID >= Math.pow(10, MAX_STORE_LENGTH) ||
-                itemId >= Math.pow(10, MAX_ITEM_LENGTH)) {
-            System.out.println("StoreID");
-            System.out.println(storeID >= Math.pow(10, MAX_STORE_LENGTH));
-
-            System.out.println("ItemID");
-            System.out.println(itemId >= Math.pow(10, MAX_ITEM_LENGTH));
-            System.out.println("おかしい 長さ");
+                                Integer itemId) {
+        if (storeID >= Math.pow(10, MAX_STORE_LENGTH) || itemId >= Math.pow(10, MAX_ITEM_LENGTH)) {
             return null;
         }
         String format = "%s%s%3$0" + MAX_STORE_LENGTH + "d%4$0" + MAX_ITEM_LENGTH + "d";
-         String gen = String.format(format, BARCODE_PREFIX_BASE, codeType.getPrefix(), storeID, itemId);
-        if (gen.length() == BARCODE_NUM){
+        String gen = String.format(format, BARCODE_PREFIX_BASE, codeType.getPrefix(), storeID, itemId);
+        if (gen.length() == BARCODE_NUM) {
             return gen;
         } else {
-            System.out.println("これバーコードの長さじゃない");
-            System.out.println("これ" + gen);
             return null;
         }
     }

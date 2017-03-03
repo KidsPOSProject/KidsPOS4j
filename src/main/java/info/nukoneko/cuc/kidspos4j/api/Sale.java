@@ -1,6 +1,7 @@
 package info.nukoneko.cuc.kidspos4j.api;
 
 import info.nukoneko.cuc.kidspos4j.model.ModelSale;
+import okhttp3.ResponseBody;
 import retrofit2.http.*;
 import rx.Observable;
 
@@ -62,4 +63,9 @@ public interface Sale {
             @Field("items") String items,
             @Field("storeId") int storeId,
             @Field("staffId") int staffId);
+
+
+    @Headers("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    @GET("sale/download/latest")
+    Observable<ResponseBody> downloadLatestSale(@Query("store_id") int storeId);
 }
