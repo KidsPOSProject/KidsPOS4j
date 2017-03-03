@@ -1,49 +1,22 @@
 package info.nukoneko.cuc.kidspos4j.util.config;
 
+import static info.nukoneko.cuc.kidspos4j.util.config.BarcodeRule.*;
+
 public class BarcodeCreator {
-    private final static Integer BARCODE_NUM = 10;
-
-    // 10 00 15 0004
-    private final static Integer MAX_STORE_LENGTH = 2;
-    final public static Integer MAX_ITEM_LENGTH = 4;
-
-    private final static String BARCODE_PREFIX_BASE = "10";
-
-    /**
-     * バーコードの種類についての列挙
-     */
-    public enum BARCODE_PREFIX {
-        STAFF("00"),
-        ITEM("01"),
-        SALE("02");
-
-        private final String prefix;
-
-        BARCODE_PREFIX(String prefix) {
-            this.prefix = prefix;
-        }
-
-        public String getPrefix() {
-            return prefix;
-        }
-    }
-
     /**
      * バーコード文字列の作成
      *
      * @param codeType バーコード種類
-     * @param storeID  販売するお店ID
-     * @param itemId   販売する商品のID
+     * @param typeValue1  種類別の値
+     * @param typeValue2  種類の中でのユニークな値
      * @return 生成された文字列
      */
-    public static String create(BARCODE_PREFIX codeType,
-                                Integer storeID,
-                                Integer itemId) {
-        if (storeID >= Math.pow(10, MAX_STORE_LENGTH) || itemId >= Math.pow(10, MAX_ITEM_LENGTH)) {
+    public static String create(BARCODE_PREFIX codeType, Integer typeValue1, Integer typeValue2) {
+        if (typeValue1 >= Math.pow(10, MAX_TYPE_VALUE1_LENGTH) || typeValue2 >= Math.pow(10, MAX_TYPE_VALUE2_LENGTH)) {
             return null;
         }
-        String format = "%s%s%3$0" + MAX_STORE_LENGTH + "d%4$0" + MAX_ITEM_LENGTH + "d";
-        String gen = String.format(format, BARCODE_PREFIX_BASE, codeType.getPrefix(), storeID, itemId);
+        String format = "%s%s%3$0" + MAX_TYPE_VALUE1_LENGTH + "d%4$0" + MAX_TYPE_VALUE2_LENGTH + "d";
+        String gen = String.format(format, BARCODE_PREFIX_BASE, codeType.getPrefix(), typeValue1, typeValue2);
         if (gen.length() == BARCODE_NUM) {
             return gen;
         } else {

@@ -1,6 +1,7 @@
 package info.nukoneko.cuc.kidspos4j.model;
 
 import info.nukoneko.cuc.kidspos4j.util.config.BarcodeCreator;
+import info.nukoneko.cuc.kidspos4j.util.config.BarcodeRule;
 import rx.Observable;
 
 import java.sql.ResultSet;
@@ -65,14 +66,14 @@ public class DataStaffImpl extends DataBase<ModelStaff> {
     }
 
     @Override
-    TableKind getTableKind() {
-        return TableKind.STAFF;
+    TABLE_KIND getTableKind() {
+        return TABLE_KIND.STAFF;
     }
 
     public ModelStaff createNewStaff(String name) {
         String barcode =
                 BarcodeCreator.create(
-                        BarcodeCreator.BARCODE_PREFIX.STAFF,
+                        BarcodeRule.BARCODE_PREFIX.STAFF,
                         16, getNewItemId());
 
         ModelStaff ret = new ModelStaff();
@@ -89,7 +90,7 @@ public class DataStaffImpl extends DataBase<ModelStaff> {
         int itemId;
         if (last > 0) {
             String _bar = findAll().get(last - 1).getBarcode();
-            _bar = _bar.substring(_bar.length() - BarcodeCreator.MAX_ITEM_LENGTH);
+            _bar = _bar.substring(_bar.length() - BarcodeRule.MAX_TYPE_VALUE2_LENGTH);
             return (Integer.parseInt(_bar) + 1);
         } else {
             return 1;
