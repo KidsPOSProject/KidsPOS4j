@@ -1,4 +1,5 @@
 # KidsPOS4j
+![Release](https://jitpack.io/v/KidsPOSProject/KidsPOS4j.svg)
 kidspos4j
 
 # Use
@@ -15,6 +16,6 @@ root/build.gradle
 root/app/build.gradle
 ```
 dependencies {
-  compile 'com.github.KidsPOSProject:KidsPOS4j:1.0.1'
+  compile 'com.github.KidsPOSProject:KidsPOS4j:$latest_version'
 }
 ```
