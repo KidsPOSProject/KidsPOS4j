@@ -1,4 +1,5 @@
 # KidsPOS4j
+![Release](https://jitpack.io/v/KidsPOSProject/KidsPOS4j.svg)
 kidspos4j
 
 # Use
